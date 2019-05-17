@@ -13,6 +13,9 @@ const LoginWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  & button {
+    background: rgba(51, 51, 255, 1) !important;
+  }
 `;
 
 function Login() {
