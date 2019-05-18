@@ -3,7 +3,6 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 /** Presentation */
 import ErrorMessage from "../components/ErrorMessage";
-import { Wrapper } from "../components/Styles";
 
 /** Custom Hooks */
 import useErrorHandler from "../utils/custom-hooks/ErrorHandler";
@@ -34,45 +33,43 @@ function Login() {
   };
 
   return (
-    <Wrapper>
-      <Form
-        onSubmit={e => {
-          e.preventDefault();
-          if (validateLoginForm(userEmail, userPassword, showError)) {
-            authHandler();
-          }
-        }}
-      >
-        <FormGroup>
-          <Label for="userEmail">Email Address</Label>
-          <Input
-            type="email"
-            name="email"
-            value={userEmail}
-            id="userEmail"
-            placeholder="john@mail.com"
-            onChange={e => setUserEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="userPassword">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            value={userPassword}
-            id="userPassword"
-            placeholder="Password"
-            onChange={e => setUserPassword(e.target.value)}
-          />
-        </FormGroup>
-        <br />
-        <Button type="submit" disabled={loading} block={true}>
-          {!loading ? "Sign In" : "Loading..."}
-        </Button>
-        <br />
-        {error && <ErrorMessage errorMessage={error} />}
-      </Form>
-    </Wrapper>
+    <Form
+      onSubmit={e => {
+        e.preventDefault();
+        if (validateLoginForm(userEmail, userPassword, showError)) {
+          authHandler();
+        }
+      }}
+    >
+      <FormGroup>
+        <Label for="userEmail">Email Address</Label>
+        <Input
+          type="email"
+          name="email"
+          value={userEmail}
+          id="userEmail"
+          placeholder="john@mail.com"
+          onChange={e => setUserEmail(e.target.value)}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="userPassword">Password</Label>
+        <Input
+          type="password"
+          name="password"
+          value={userPassword}
+          id="userPassword"
+          placeholder="Password"
+          onChange={e => setUserPassword(e.target.value)}
+        />
+      </FormGroup>
+      <br />
+      <Button type="submit" disabled={loading} block={true}>
+        {loading ? "Loading..." : "Sign In"}
+      </Button>
+      <br />
+      {error && <ErrorMessage errorMessage={error} />}
+    </Form>
   );
 }
 
