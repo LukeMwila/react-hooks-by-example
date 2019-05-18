@@ -1,29 +1,40 @@
 import * as React from "react";
 
+/** Custom types */
+import { UserAuth } from "../custom-types";
+
 /** Custom Hooks */
 import useAuthHandler from "../utils/custom-hooks/AuthHandler";
 
+/** Utils */
+import { DEFAULT_USER_AUTH } from "../utils/Consts";
+import { getStoredUserAuth } from "../utils/Helpers";
+
 interface IAppContextInterface {
-  authenticated: boolean;
-  signIn: (authenticated: boolean) => void;
-  signOut: (authenticated: boolean) => void;
+  auth: UserAuth;
+  setAuthStatus: (userAuth: UserAuth) => void;
+  setUnauthStatus: () => void;
 }
 
-const AuthContext = React.createContext<IAppContextInterface>({
-  authenticated: false,
-  signIn: () => {},
-  signOut: () => {}
+export const authContext = React.createContext<IAppContextInterface>({
+  auth: DEFAULT_USER_AUTH,
+  setAuthStatus: () => {},
+  setUnauthStatus: () => {}
 });
+
+const { Provider } = authContext;
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const { authenticated, signIn, signOut } = useAuthHandler(false);
+  const { auth, setAuthStatus, setUnauthStatus } = useAuthHandler(
+    getStoredUserAuth()
+  );
 
   return (
-    <AuthContext.Provider value={{ authenticated, signIn, signOut }}>
+    <Provider value={{ auth, setAuthStatus, setUnauthStatus }}>
       {children}
-    </AuthContext.Provider>
+    </Provider>
   );
 };
 

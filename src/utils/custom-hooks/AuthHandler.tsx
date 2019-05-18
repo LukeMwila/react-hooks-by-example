@@ -1,22 +1,28 @@
 import * as React from "react";
 
-const useAuthHandler = (initialState: boolean) => {
-  const [authenticated, setAuthenticated] = React.useState(initialState);
+/** Custom types */
+import { UserAuth } from "../../custom-types";
 
-  const signIn = (authStatus: boolean) => {
-    window.localStorage.setItem("Authenticated", authStatus.toString());
-    setAuthenticated(authStatus);
+/** Utils */
+import { DEFAULT_USER_AUTH } from "../Consts";
+
+const useAuthHandler = (initialState: UserAuth) => {
+  const [auth, setAuth] = React.useState(initialState);
+
+  const setAuthStatus = (userAuth: UserAuth) => {
+    window.localStorage.setItem("UserAuth", JSON.stringify(userAuth));
+    setAuth(userAuth);
   };
 
-  const signOut = (authStatus: boolean) => {
+  const setUnauthStatus = () => {
     window.localStorage.clear();
-    setAuthenticated(authStatus);
+    setAuth(DEFAULT_USER_AUTH);
   };
 
   return {
-    authenticated,
-    signIn,
-    signOut
+    auth,
+    setAuthStatus,
+    setUnauthStatus
   };
 };
 

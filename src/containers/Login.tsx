@@ -1,75 +1,45 @@
 import * as React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import styled from "styled-components";
 
 /** Presentation */
 import ErrorMessage from "../components/ErrorMessage";
+import { Wrapper } from "../components/Styles";
 
 /** Custom Hooks */
 import useErrorHandler from "../utils/custom-hooks/ErrorHandler";
 
-/** Utils */
-import { validateLoginForm } from "../utils/Helpers";
+/** Context */
+import { authContext } from "../contexts/AuthContext";
 
-const LoginWrapper = styled.div`
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & button {
-    background: rgba(51, 51, 255, 1) !important;
-  }
-`;
+/** Utils */
+import { authenticateUser, validateLoginForm } from "../utils/Helpers";
 
 function Login() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [userEmail, setUserEmail] = React.useState("");
+  const [userPassword, setUserPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const auth = React.useContext(authContext);
   const { error, showError } = useErrorHandler(null);
 
-  /** Make API request to authenticate user
-   * @param email - user's email/username
-   * @param password - user's password
-   * @param setLoading - function to update the loading state value
-   */
-  const authenticateUser = (
-    email: string,
-    password: string,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  ): Promise<any> => {
-    setLoading(true);
-
-    return new Promise((resolve, reject) => {
-      fetch("https://jsonplaceholder.typicode.com/users", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      })
-        .then(res => res.json())
-        .then(data => resolve(data))
-        .catch(err => reject(err));
-    });
+  const authHandler = async () => {
+    try {
+      setLoading(true);
+      const userData = await authenticateUser(userEmail, userPassword);
+      const { id, email } = userData;
+      auth.setAuthStatus({ id, email });
+    } catch (err) {
+      setLoading(false);
+      showError(err.message);
+    }
   };
 
   return (
-    <LoginWrapper>
+    <Wrapper>
       <Form
-        onSubmit={async e => {
+        onSubmit={e => {
           e.preventDefault();
-          if (validateLoginForm(email, password, showError)) {
-            try {
-              const userData = await authenticateUser(
-                email,
-                password,
-                setLoading
-              );
-              console.log("User data:", userData);
-            } catch (err) {
-              setLoading(false);
-              showError(err.message);
-            }
+          if (validateLoginForm(userEmail, userPassword, showError)) {
+            authHandler();
           }
         }}
       >
@@ -78,10 +48,10 @@ function Login() {
           <Input
             type="email"
             name="email"
-            value={email}
+            value={userEmail}
             id="userEmail"
             placeholder="john@mail.com"
-            onChange={e => setEmail(e.target.value)}
+            onChange={e => setUserEmail(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
@@ -89,10 +59,10 @@ function Login() {
           <Input
             type="password"
             name="password"
-            value={password}
+            value={userPassword}
             id="userPassword"
             placeholder="Password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={e => setUserPassword(e.target.value)}
           />
         </FormGroup>
         <br />
@@ -102,7 +72,7 @@ function Login() {
         <br />
         {error && <ErrorMessage errorMessage={error} />}
       </Form>
-    </LoginWrapper>
+    </Wrapper>
   );
 }
 

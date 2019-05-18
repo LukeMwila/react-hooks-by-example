@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Login from "./containers/Login";
+import RootContainer from "./containers/RootContainer";
 
 /** Context API */
 import AuthContextProvider from "./contexts/AuthContext";
@@ -8,7 +8,7 @@ import AuthContextProvider from "./contexts/AuthContext";
 function App() {
   return (
     <AuthContextProvider>
-      <Login />
+      <RootContainer />
     </AuthContextProvider>
   );
 }
