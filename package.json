@@ -8,7 +8,8 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "reactstrap": "^8.0.0",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "validator": "^10.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,6 +37,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/reactstrap": "^8.0.1",
     "@types/styled-components": "^4.1.15",
+    "@types/validator": "^10.11.0",
     "typescript": "^3.4.5"
   }
 }
