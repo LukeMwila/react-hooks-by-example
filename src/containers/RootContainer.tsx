@@ -2,7 +2,6 @@ import * as React from "react";
 
 /** Context */
 import { authContext } from "../contexts/AuthContext";
-
 /** Presentation */
 import { Wrapper } from "../components/Styles";
 
