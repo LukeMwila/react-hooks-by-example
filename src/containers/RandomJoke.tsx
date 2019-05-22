@@ -13,7 +13,8 @@ const RandomJoke: React.FC<{}> = () => {
     const getRandomJoke = async () => {
       setLoading(true);
       const joke = await apiRequest(
-        "https://geek-jokes.sameerkumar.website/api"
+        "https://geek-jokes.sameerkumar.website/api",
+        "get"
       );
       setLoading(false);
       setJoke(joke);

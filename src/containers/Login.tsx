@@ -11,7 +11,7 @@ import useErrorHandler from "../utils/custom-hooks/ErrorHandler";
 import { authContext } from "../contexts/AuthContext";
 
 /** Utils */
-import { authenticateUser, validateLoginForm } from "../utils/Helpers";
+import { apiRequest, validateLoginForm } from "../utils/Helpers";
 import { Header } from "../components/Styles";
 
 function Login() {
@@ -24,7 +24,11 @@ function Login() {
   const authHandler = async () => {
     try {
       setLoading(true);
-      const userData = await authenticateUser(userEmail, userPassword);
+      const userData = await apiRequest(
+        "https://jsonplaceholder.typicode.com/users",
+        "post",
+        { email: userEmail, password: userPassword }
+      );
       const { id, email } = userData;
       auth.setAuthStatus({ id, email });
     } catch (err) {

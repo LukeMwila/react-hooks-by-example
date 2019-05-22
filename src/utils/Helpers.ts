@@ -1,6 +1,6 @@
 import * as validator from "validator";
 import { UserAuth } from "../custom-types";
-import { DEFAULT_USER_AUTH, END_POINT } from "./Consts";
+import { DEFAULT_USER_AUTH } from "./Consts";
 
 /** Handle form validation for the login form
  * @param email - user's auth email
@@ -36,40 +36,25 @@ export const getStoredUserAuth = (): UserAuth => {
   return DEFAULT_USER_AUTH;
 };
 
-/** Make API request to authenticate user
- * @param email - user's email/username
- * @param password - user's password
- */
-export const authenticateUser = (
-  email: string,
-  password: string
-): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    fetch(END_POINT, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify({ email, password })
-    })
-      .then(res => res.json())
-      .then(data => resolve(data))
-      .catch(err => reject(err));
-  });
-};
-
 /**
  * API Request
  * @param url - api endpoint
+ * @param method - http method
+ * @param bodyParams - body parameters of request
  */
 
-export const apiRequest = async (url: string): Promise<any> => {
+export const apiRequest = async (
+  url: string,
+  method: string,
+  bodyParams?: { email: string; password: string }
+): Promise<any> => {
   const response = await fetch(url, {
-    method: "GET",
+    method,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
-    }
+    },
+    body: bodyParams ? JSON.stringify(bodyParams) : undefined
   });
 
   return await response.json();

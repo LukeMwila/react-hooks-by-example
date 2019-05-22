@@ -8,7 +8,7 @@ import { Wrapper } from "../components/Styles";
 import Login from "./Login";
 import ToDo from "./ToDo";
 
-const RootContainer: React.FC<{}> = () => {
+function RootContainer() {
   const { auth } = React.useContext(authContext);
   return (
     <Wrapper>
@@ -16,6 +16,6 @@ const RootContainer: React.FC<{}> = () => {
       {!auth.id && <Login />}
     </Wrapper>
   );
-};
+}
 
 export default RootContainer;
