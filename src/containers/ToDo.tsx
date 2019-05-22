@@ -5,15 +5,19 @@ import { Header } from "../components/Styles";
 
 /** Components */
 import AddToDo from "./AddToDo";
+import RandomJoke from "./RandomJoke";
 import ToDoList from "./ToDoList";
+/** Presentation/UI */
+import { ToDoContainer } from "../components/Styles";
 
 function ToDo() {
   return (
-    <div>
+    <ToDoContainer>
       <Header>My to do list</Header>
+      <RandomJoke />
       <AddToDo />
       <ToDoList />
-    </div>
+    </ToDoContainer>
   );
 }
 

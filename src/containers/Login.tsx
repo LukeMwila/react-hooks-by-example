@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Input } from "reactstrap";
 
 /** Presentation */
 import ErrorMessage from "../components/ErrorMessage";
@@ -12,6 +12,7 @@ import { authContext } from "../contexts/AuthContext";
 
 /** Utils */
 import { authenticateUser, validateLoginForm } from "../utils/Helpers";
+import { Header } from "../components/Styles";
 
 function Login() {
   const [userEmail, setUserEmail] = React.useState("");
@@ -41,29 +42,26 @@ function Login() {
         }
       }}
     >
+      <Header>Sign in</Header>
+      <br />
       <FormGroup>
-        <Label for="userEmail">Email Address</Label>
         <Input
           type="email"
           name="email"
           value={userEmail}
-          id="userEmail"
           placeholder="john@mail.com"
           onChange={e => setUserEmail(e.target.value)}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="userPassword">Password</Label>
         <Input
           type="password"
           name="password"
           value={userPassword}
-          id="userPassword"
           placeholder="Password"
           onChange={e => setUserPassword(e.target.value)}
         />
       </FormGroup>
-      <br />
       <Button type="submit" disabled={loading} block={true}>
         {loading ? "Loading..." : "Sign In"}
       </Button>

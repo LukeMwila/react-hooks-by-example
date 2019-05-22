@@ -6,6 +6,7 @@ import uuid from "uuid";
 import { toDoContext } from "../contexts/ToDoContext";
 /** Presentation */
 import ErrorMessage from "../components/ErrorMessage";
+import { Input } from "../components/Styles";
 /** Custom Hooks */
 import useErrorHandler from "../utils/custom-hooks/ErrorHandler";
 /** Utils */
@@ -33,7 +34,7 @@ const ToDo: React.FC<{}> = () => {
         addNewToDoItem();
       }}
     >
-      <input type="text" ref={textInput} placeholder="Add to do item" />
+      <Input type="text" ref={textInput} placeholder="Add to do item" />
       <Button type="submit" block={true}>
         Add
       </Button>

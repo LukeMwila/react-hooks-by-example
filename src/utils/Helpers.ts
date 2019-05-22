@@ -57,3 +57,20 @@ export const authenticateUser = (
       .catch(err => reject(err));
   });
 };
+
+/**
+ * API Request
+ * @param url - api endpoint
+ */
+
+export const apiRequest = async (url: string): Promise<any> => {
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  return await response.json();
+};
