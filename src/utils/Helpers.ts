@@ -37,7 +37,7 @@ export const getStoredUserAuth = (): UserAuth => {
 };
 
 /**
- * API Request
+ * API Request handler
  * @param url - api endpoint
  * @param method - http method
  * @param bodyParams - body parameters of request

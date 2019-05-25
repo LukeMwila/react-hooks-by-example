@@ -12,7 +12,7 @@ import useErrorHandler from "../utils/custom-hooks/ErrorHandler";
 /** Utils */
 import { ActionType } from "../custom-types";
 
-const ToDo: React.FC<{}> = () => {
+const AddToDo: React.FC<{}> = () => {
   const { updateToDoList } = React.useContext(toDoContext);
   const { error, showError } = useErrorHandler(null);
   const textInput = React.useRef<HTMLInputElement>(null);
@@ -44,4 +44,4 @@ const ToDo: React.FC<{}> = () => {
   );
 };
 
-export default ToDo;
+export default AddToDo;
